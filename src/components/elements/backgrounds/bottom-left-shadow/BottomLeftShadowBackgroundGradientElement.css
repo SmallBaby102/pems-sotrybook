@@ -1,0 +1,10 @@
+
+.bottom-left::before{
+    width: 189px;
+    height: 173.94px;
+    left: -107px;
+    bottom: -105px;
+    background: conic-gradient(from 180deg at 50% 50%, #B9CBFB 0deg, #ECACAD 95.99deg, #9895EE 112.5deg, #C55492 196.87deg, #90A2F8 292.5deg, #B9CBFB 360deg);
+    opacity: 0.4;
+    filter: blur(100px);
+}

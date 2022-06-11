@@ -1,0 +1,6 @@
+import {DATA_FIRESTORE_V01_CONST} from "./v01/firestore-v01-const";
+
+export const DATA_FIRESTORE_CONST = {
+    LATEST: DATA_FIRESTORE_V01_CONST,
+    V01 : DATA_FIRESTORE_V01_CONST
+}

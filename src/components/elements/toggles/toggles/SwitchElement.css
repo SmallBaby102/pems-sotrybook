@@ -1,0 +1,51 @@
+.tw-button {
+    width: 108px;
+    height: 48px;
+    border-radius: 10px;
+    outline: none;
+    -webkit-transition: background 0.4s;
+    transition: background 0.4s;
+}
+
+.tw-button span {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 52px;
+    height: 40px;
+    border-radius: 10px;
+    -webkit-transition: all 0.2s cubic-bezier(0, 0, 0.46, 1.82);
+    transition: all 0.2s cubic-bezier(0, 0, 0.46, 1.82);
+    -webkit-transition: all 0.2s cubic-bezier(0.24, 1.74, 0.92, 0.85);
+    transition: all 0.2s cubic-bezier(0.24, 1.74, 0.92, 0.85);
+}
+
+.tw-button:active span {
+    width: 56px;
+}
+
+.tw-button .btn-text.yes{
+    left: 0;
+}
+
+.tw-button .btn-text.no{
+    right: 0;
+}
+
+.tw-button:active.yes span {
+    margin-left: -54px;
+}
+
+.tw-button.yes span {
+    left: 100%;
+    margin-left: -56px;
+}
+
+.tw-button .btn-text{
+    width: 52px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
