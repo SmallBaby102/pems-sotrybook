@@ -25,9 +25,6 @@ const Template: ComponentStory<typeof Prototype01Component> =
  */
 export const Base = Template.bind({});
 Base.args = {
-    name : "Sample",
-    mainMetric: 100,
-    subMetric: 200,
 };
 
 Base.storyName = "Base"

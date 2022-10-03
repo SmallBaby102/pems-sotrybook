@@ -1,17 +1,27 @@
-// ############################################################
-/**
- * @todo Document this
- */
-// ############################################################
+import { createContext, useEffect, useState, useRef } from "react";
+import Prototype03Signup from "./Prototype03Signup";
+import { SignupStages } from "./Prototype03ContextApi";
+import Prototype03EventOrganizer from "./Prototype03EventOrganizer";
+import Prototype03EventOrganizerVerify from "./Prototype03EventOrganizerVerify";
+import Prototype03SignupForm from "./Prototype03SignupForm";
+import appBg from "./assets/bg.svg";
+import Prototype03ProfileForm from "./Prototype03EventProfileForm";
+import Prototype03LandingContainingDrawer from "./Prototype03LandingContainingDrawer";
+import Prototype03Invite from "./Prototype03EventInvite";
+import Prototype03VendorForm from "./Prototype03VendorForm";
+import Prototype03VendorProfileForm from "./Prototype03VendorProfileForm";
+import Prototype03CompetitorOrganizer from "./Prototype03CompetitorOrganizer";
+import Prototype03CompetitorProfileForm from "./Prototype03CompetitorProfileForm";
+import Prototype03VendorProducts from "./Prototype03VendorProducts";
+import Prototype03CompetitorOrganizerVerify from "./Prototype03CompetitorOrganizerVerify";
 
 
-import {VariableIcon} from "@heroicons/react/outline";
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 /**
  * @todo Document this
  */
-export interface Prototype03ComponentProps {
+export interface Prototype04ComponentProps {
     id: string;
     icon: any;
     name: string;
@@ -19,50 +29,80 @@ export interface Prototype03ComponentProps {
     subMetric: any;
 }
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-/**
- * @todo Document this
- */
-const Prototype03Component: React.FC<Prototype03ComponentProps> = (props) => {
+const Prototype03Component: React.FC<Prototype04ComponentProps> = (props) => {
 
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    // handle stages and pages at each moment:
+    const signupStagesState = useState<{ selector: string, stage: string }>({ selector: "", stage: "Init" });
+
+    // for back button
+    const prevStage = useRef<{ selector: string, stage: string }>({ selector: "", stage: "Init" });
+
+    useEffect(() => {
+        prevStage.current = signupStagesState[0]
+    }, [signupStagesState[0]])
+
     return (
-        <div
-            key={props.id}
-            className="relative bg-white pt-5 px-4  sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-        >
-            <div>
-                <dt>
-                    <div className="absolute bg-teal-100 rounded-md p-3">
-                        <props.icon className="h-6 w-6 text-teal-500" aria-hidden="true"/>
-                    </div>
-                    <p className="ml-16 pt-4 text-sm font-medium text-gray-500 truncate">{props.name}</p>
-                </dt>
-                <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
-                </dd>
+        <SignupStages.Provider value={[...signupStagesState, prevStage]}>
+            <div className="p-6 min-h-full bg-cover" style={{ backgroundImage: `url(${appBg})` }}>
+                {/* <img src={appBg} /> */}
+                {
+                    signupStagesState[0]?.stage === "Init" &&
+                    <Prototype03Signup />
+                }
+                {
+                    signupStagesState[0]?.selector === "event" &&
+                    (function () {
+                        switch (signupStagesState[0]?.stage) {
+                            case "EventOrg":
+                                return <Prototype03EventOrganizer />
+                            case "EventOrgVerify":
+                                return <Prototype03EventOrganizerVerify />
+                            case "SignUp":
+                                return <Prototype03SignupForm />
+                            case "Profile":
+                                return <Prototype03ProfileForm />
+                            case "Invite":
+                                return <Prototype03Invite />
+                            case "Landing":
+                                return <Prototype03LandingContainingDrawer />
+                        }
+                    })()
+                }
+                {
+                    signupStagesState[0]?.selector === "competitor" &&
+                    (function () {
+                        switch (signupStagesState[0]?.stage) {
+                            case "CompOrg":
+                                return <Prototype03CompetitorOrganizer />
+                            case "CompOrgVerify":
+                                return <Prototype03CompetitorOrganizerVerify />
+                            case "SignUp":
+                                return <Prototype03SignupForm />
+                            case "Profile":
+                                return <Prototype03CompetitorProfileForm />
+                            case "Landing":
+                                return <Prototype03LandingContainingDrawer />
+                        }
+                    })()
+                }
+                {
+                    signupStagesState[0]?.selector === "vendor" &&
+                    (function () {
+                        switch (signupStagesState[0]?.stage) {
+                            case "VendorForm":
+                                return <Prototype03VendorForm />
+                            case "Profile":
+                                return <Prototype03VendorProfileForm />
+                            case "Landing":
+                                return <Prototype03LandingContainingDrawer />
+                            case "Products":
+                                return <Prototype03VendorProducts />
+                        }
+                    })()
+                }
             </div>
-            <div>
-                <dd className="pb-6 flex items-baseline justify-between sm:pb-7">
-                    <p className="text-3xl text-gray-900">{props.mainMetric.toString()}</p>
-                    <p
-                        className="ml-2 flex items-baseline bg-violet-200 p-1.5 rounded-md text-xl text-violet-700"
-                    >
-                        {props.subMetric.toString()}
-                    </p>
-                </dd>
-            </div>
-
-        </div>
+        </SignupStages.Provider>
     );
 };
-
-Prototype03Component.defaultProps = {
-    id: "",
-    icon: VariableIcon,
-    name: "",
-    mainMetric: "",
-    subMetric: ""
-}
-
 
 export default Prototype03Component;

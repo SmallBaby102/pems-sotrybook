@@ -1,0 +1,12 @@
+.full-map-content .leaflet-popup-content {
+    width: 30px !important;
+    margin: 5px;
+}
+.full-map-content.red .leaflet-popup-content-wrapper,
+.full-map-content.red .leaflet-popup-tip {
+    background-color: #f7074f;
+}
+.leaflet-control-container {
+    position: absolute;
+    bottom: 50%;
+}

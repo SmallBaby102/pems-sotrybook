@@ -4,7 +4,7 @@
  */
 // ############################################################
 
-import {FIREBASE_CONFIG} from "./firebase-config";
+import { firebaseConfig } from "./firebase-config";
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 /**
@@ -12,5 +12,5 @@ import {FIREBASE_CONFIG} from "./firebase-config";
  */
 export const CONFIG = {
     RUN_MODE: process.env.NODE_ENV,
-    FIREBASE: FIREBASE_CONFIG
+    FIREBASE: firebaseConfig
 };

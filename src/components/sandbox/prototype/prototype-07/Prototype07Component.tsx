@@ -1,16 +1,9 @@
-// ############################################################
-/**
- * @todo Document this
- */
-// ############################################################
-
-
-import {VariableIcon} from "@heroicons/react/outline";
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-/**
- * @todo Document this
- */
+import { useState, useEffect, useRef, createRef } from "react";
+import { VariableIcon } from "@heroicons/react/outline";
+import bgImage from "./assets/main-bg.jpg";
+import HeaderSection from "./components/HeaderSection";
+import FormSection from "./components/FormSection";
+import { SignupStages } from "./components/Prototype07ContextApi";
 export interface Prototype07ComponentProps {
     id: string;
     icon: any;
@@ -19,40 +12,61 @@ export interface Prototype07ComponentProps {
     subMetric: any;
 }
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-/**
- * @todo Document this
- */
 const Prototype07Component: React.FC<Prototype07ComponentProps> = (props) => {
+    const signupStagesState = useState<{ selector: string; stage: string }>({
+        selector: "",
+        stage: "Init",
+    });
+    // for back button
+    const prevStage = useRef<{ selector: string; stage: string }>({
+        selector: "",
+        stage: "Init",
+    });
 
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    useEffect(() => {
+        prevStage.current = signupStagesState[0];
+    }, [signupStagesState[0]]);
+
+    // for centering forms when there is no overflow //////////////////
+    const mainContainer = createRef<HTMLDivElement>();
+    useEffect(() => {
+        const marginTopCalculator = () => {
+            const windowHeight = window.innerHeight - 118;
+            const containerHeight = mainContainer.current?.clientHeight || 0;
+            let marginTop = (windowHeight - containerHeight) / 2;
+            if (marginTop < 0) marginTop = 0;
+            mainContainer.current!.style!.marginTop = marginTop + "px";
+        };
+        const timeout = setTimeout(marginTopCalculator, 50);
+        window.addEventListener("resize", marginTopCalculator, true);
+        return () => {
+            window.removeEventListener("resize", marginTopCalculator, true);
+            clearTimeout(timeout);
+        };
+    }, [signupStagesState[0]]);
+
+    /////////////////////////////////////////////////////////////////////
+
     return (
-        <div
-            key={props.id}
-            className="relative bg-white pt-5 px-4  sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-        >
-            <div>
-                <dt>
-                    <div className="absolute bg-teal-100 rounded-md p-3">
-                        <props.icon className="h-6 w-6 text-teal-500" aria-hidden="true"/>
-                    </div>
-                    <p className="ml-16 pt-4 text-sm font-medium text-gray-500 truncate">{props.name}</p>
-                </dt>
-                <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
-                </dd>
-            </div>
-            <div>
-                <dd className="pb-6 flex items-baseline justify-between sm:pb-7">
-                    <p className="text-3xl text-gray-900">{props.mainMetric.toString()}</p>
-                    <p
-                        className="ml-2 flex items-baseline bg-violet-200 p-1.5 rounded-md text-xl text-violet-700"
+        <SignupStages.Provider value={[...signupStagesState, prevStage]}>
+            <div
+                key={props.id}
+                style={{
+                    backgroundImage: `url(${bgImage})`,
+                }}
+                className="h-screen flex flex-col bg-cover"
+            >
+                <HeaderSection />
+                <div className="flex-1 overflow-auto pb-10 min-h-[calc(100vh_-_118px)]">
+                    <div
+                        className="w-[380px] ml-[100px] transition-[all_.3s]"
+                        ref={mainContainer}
                     >
-                        {props.subMetric.toString()}
-                    </p>
-                </dd>
+                        <FormSection />
+                    </div>
+                </div>
             </div>
-
-        </div>
+        </SignupStages.Provider>
     );
 };
 
@@ -61,8 +75,7 @@ Prototype07Component.defaultProps = {
     icon: VariableIcon,
     name: "",
     mainMetric: "",
-    subMetric: ""
-}
-
+    subMetric: "",
+};
 
 export default Prototype07Component;

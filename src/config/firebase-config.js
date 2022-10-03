@@ -1,16 +1,11 @@
 
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
-export const FIREBASE_CONFIG = {
-    APP : {
-        apiKey: process.env.REACT_APP_API_KEY,
-        authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-        projectId: process.env.REACT_APP_PROJECT_ID,
-        storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-        messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-        appId: process.env.REACT_APP_APP_ID,
-        measurementId: process.env.REACT_APP_MEASUREMENT_ID
-    },
-};
+export const firebaseConfig = {
+    apiKey: "AIzaSyDNpzW6WtvLDY6lfduk0g3LzJGK3zZWjK4",
+    authDomain: "pegasus-dev-10dfe.firebaseapp.com",
+    projectId: "pegasus-dev-10dfe",
+    storageBucket: "pegasus-dev-10dfe.appspot.com",
+    messagingSenderId: "500901475191",
+    appId: "1:500901475191:web:183da26b9ff0ceb2b2a772",
+    measurementId: "G-CXG1NS0CYM"
+  };

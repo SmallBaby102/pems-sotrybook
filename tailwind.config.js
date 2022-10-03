@@ -30,15 +30,23 @@ module.exports = {
         SeabiscuitIconThemeColor: '#1F4173', // @TODO Change this name
         SeabiscuitProgressBarThemeColor: '#E6EAF2', // @TODO Change this name
         SeabiscuitGrayLightThemeColor: '#BCC6D5',
-        SeabiscuitGrayLight100ThemeColor: '#DADADA',
+        SeabiscuitGrayLight100ThemeColor: '#DADADA',        
         SeabiscuitGrayLight200ThemeColor: '#E5E5E5',
         SeabiscuitGrayLight300ThemeColor: '#DDDDDD',
         SeabiscuitBlueThemeColor: '#5669FF',
+      },
+      screens:{
+        mobile: '480px',
+        tablet: '768px',
+        mini: '1024px',
+        laptop: '1280px',
+        desktop: '1440px',
       }
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
+    require('tailwind-scrollbar-hide')
   ],
 }

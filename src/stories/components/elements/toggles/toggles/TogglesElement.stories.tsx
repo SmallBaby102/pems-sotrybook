@@ -19,7 +19,7 @@ export default {
 const Template: ComponentStory<typeof TogglesElement> =
     (args) =>
         <div className="ml-4 mt-4">
-            <TogglesElement />
+            <TogglesElement onToggle={()=>console.log("ok")} on={false}/>
         </div>;
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
